@@ -1,0 +1,1 @@
+/home/tommy/LORAWAN/scripts/setup/reset_lgw.sh
