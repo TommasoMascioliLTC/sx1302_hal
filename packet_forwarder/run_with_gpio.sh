@@ -1,6 +1,6 @@
 #!/bin/bash
 # Wrapper script that performs proper WM1302 reset and runs packet forwarder
-# NOTE: GPIO17 and GPIO18 are configured as active-low in the kernel,
+# NOTE: GPIO17 and GPIO22 are configured as active-low in the kernel,
 #       so logic is inverted: write 0 for "high", write 1 for "low"
 
 cd /opt/sx1302_hal/packet_forwarder
@@ -11,9 +11,9 @@ echo "WM1302 Reset sequence (proper timing with inverted GPIO logic)..."
 killall gpioset 2>/dev/null || true
 sleep 0.3
 
-# Power enable (GPIO18: write 0 = HIGH = enabled)
-echo "  → Power enable (GPIO18=0, reads as 1)"
-sudo gpioset gpiochip0 18=0
+# Power enable (GPIO22: write 0 = HIGH = enabled)
+echo "  → Power enable (GPIO22=0, reads as 1)"
+sudo gpioset gpiochip0 22=0
 sleep 0.1
 
 # Reset pulse SX1302: 200ms LOW pulse (GPIO17 active-low reset)
@@ -35,8 +35,8 @@ sleep 0.1
 
 # Verify GPIO state (should show: 0 0 0 which means 1 1 1 logically)
 echo "  → Final GPIO state (inverted, 0=high, 1=low):"
-GPIO_STATE=$(sudo gpioget gpiochip0 17 18 5 2>/dev/null)
-echo "     GPIO17 GPIO18 GPIO5 = $GPIO_STATE (expected: 0 0 0)"
+GPIO_STATE=$(sudo gpioget gpiochip0 17 22 5 2>/dev/null)
+echo "     GPIO17 GPIO22 GPIO5 = $GPIO_STATE (expected: 0 0 0)"
 
 # Allow chip to stabilize
 sleep 1.0

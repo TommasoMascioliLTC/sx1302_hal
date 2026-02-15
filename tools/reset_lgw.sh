@@ -16,9 +16,12 @@
 
 # GPIO mapping verified with: cat /sys/kernel/debug/gpio
 # BCM GPIO numbers for WM1302 HAT (gpiochip0 base)
+# NOTE: Most WM1302 HATs use GPIO 18 for Power Enable (verified working)
+#       This script uses GPIO 22 (alternative configuration)
+#       For auto-detection, use: scripts/setup/reset_lgw_auto.sh
 SX1302_RESET_PIN=17      # SX1302 reset (gpio-529) 17
-SX1302_POWER_EN_PIN=22   # SX1302 power enable (gpio-534) 22 oppure 18
-SX1261_RESET_PIN=5      # SX1261 reset for LBT/Spectral Scan (gpio-537) 25
+SX1302_POWER_EN_PIN=22   # SX1302 power enable - ALTERNATIVE (standard is GPIO 18)
+SX1261_RESET_PIN=5       # SX1261 reset for LBT/Spectral Scan (gpio-537) 25
 AD5338R_RESET_PIN=13     # AD5338R ADC reset (gpio-525) 13
 GPIOCHIP="gpiochip0"
 
